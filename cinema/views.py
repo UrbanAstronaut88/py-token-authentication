@@ -5,7 +5,14 @@ from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 
-from cinema.models import Genre, Actor, CinemaHall, Movie, MovieSession, Order
+from cinema.models import (Genre,
+                           Actor,
+                           CinemaHall,
+                           Movie,
+                           MovieSession,
+                           Order
+                           )
+
 from cinema.permissions import IsAdminOrIfAuthenticatedReadOnly
 
 from cinema.serializers import (
@@ -42,6 +49,7 @@ class CinemaHallViewSet(viewsets.ModelViewSet):
     serializer_class = CinemaHallSerializer
     permission_classes = [IsAdminOrIfAuthenticatedReadOnly]
     http_method_names = ("get", "post")
+
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.prefetch_related("genres", "actors")
